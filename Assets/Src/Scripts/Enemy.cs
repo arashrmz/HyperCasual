@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(_navMeshAgent.remainingDistance);
         if (_navMeshAgent.remainingDistance < 1f)
         {
             StartCoroutine(SetNewPatrolPoint());
