@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private TextMeshProUGUI keyText;
+    [SerializeField] private Button restartButton;
+
+    private void Start()
     {
-        
+        restartButton.onClick.AddListener(() => GameManager.Instance.RestartLevel());
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GameOver()
     {
-        
+        gameOverPanel.SetActive(true);
+    }
+
+    public void Win()
+    {
+        winPanel.SetActive(true);
+    }
+
+    public void UpdateKeyText(int keysCollected)
+    {
+        Debug.Log("Updating key text");
+        keyText.text = $"{keysCollected}/{GameManager.Instance.TotalKeys} keys";
     }
 }
