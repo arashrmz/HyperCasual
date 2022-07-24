@@ -10,7 +10,9 @@ public class EnemyFieldOfView : MonoBehaviour
     [SerializeField] private int rayCount = 15;
     [SerializeField] private float viewDistance = 10f;
     [SerializeField] private LayerMask obstacleLayerMask;
+    [SerializeField] private LayerMask playerMask;
     [SerializeField] private Transform parent;
+
     void Start()
     {
         _mesh = new Mesh();
@@ -35,10 +37,15 @@ public class EnemyFieldOfView : MonoBehaviour
         {
             var vertex = origin + GetVectorFromAngle(angle) * viewDistance;
             RaycastHit rayCastHit;
-            var hit = Physics.Raycast(origin, GetVectorFromAngle(angle), out rayCastHit, viewDistance, obstacleLayerMask);
+            var hit = Physics.Raycast(origin, GetVectorFromAngle(angle), out rayCastHit, viewDistance, obstacleLayerMask ^ playerMask);
             if (hit)
             {
                 vertex = rayCastHit.point;
+
+                if (rayCastHit.collider.tag == "Player")
+                {
+                    GameManager.Instance.OnDiscoveredByEnemy();
+                }
             }
             vertices[vertexIndex] = vertex;
             if (i > 0)
