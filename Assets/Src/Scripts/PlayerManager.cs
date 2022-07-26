@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundDistance = 1f;
+
+    private void FixedUpdate()
+    {
+        var grounded = Physics.Raycast(transform.position, -transform.up, groundDistance, groundLayer);
+        if (!grounded)
+        {
+            Debug.Log("You lose");
+            GameManager.Instance.OnFallDown();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Key")
@@ -23,4 +36,9 @@ public class PlayerManager : MonoBehaviour
     }
 
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, -transform.up * groundDistance);
+    }
 }
