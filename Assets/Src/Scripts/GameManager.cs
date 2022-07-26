@@ -18,11 +18,6 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.UpdateKeyText(_keysCollected);
     }
 
-    public void PlayerDiscovered()
-    {
-        Debug.Log("Player discovered");
-    }
-
     public void OnKeyCollected()
     {
         _keysCollected++;
@@ -48,7 +43,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void OnDiscoveredByEnemy()
+    public void OnFallDown()
     {
         Debug.Log("You lose");
         UIManager.Instance.GameOver();
