@@ -10,10 +10,16 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject winPanel;
     [SerializeField] private TextMeshProUGUI keyText;
     [SerializeField] private Button restartButton;
+    [SerializeField] private GameObject startupText;
 
     private void Start()
     {
         restartButton.onClick.AddListener(() => GameManager.Instance.RestartLevel());
+    }
+
+    public void StartGame()
+    {
+        startupText.SetActive(false);
     }
 
     public void GameOver()
@@ -26,9 +32,8 @@ public class UIManager : Singleton<UIManager>
         winPanel.SetActive(true);
     }
 
-    public void UpdateKeyText(int keysCollected)
+    public void UpdateKeyText()
     {
-        Debug.Log("Updating key text");
-        keyText.text = $"{keysCollected}/{GameManager.Instance.TotalKeys} keys";
+        keyText.text = $"{GameManager.Instance.KeysOwned} keys";
     }
 }

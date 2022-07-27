@@ -1,56 +1,77 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     private int _keysCollected = 0;
-    private bool _isDoorOpen;
+    private int _keysOwned = 0;
+    private bool _isGameStarted = false;
 
-    [SerializeField] private int keysToCollect = 5;
+    [SerializeField] private PlayerManager playerManager;
 
-    public int TotalKeys { get => keysToCollect; }
+    public int KeysOwned { get => _keysOwned; }
 
     private void Start()
     {
-        UIManager.Instance.UpdateKeyText(_keysCollected);
+        UIManager.Instance.UpdateKeyText();
     }
 
-    public void PlayerDiscovered()
+    private void Update()
     {
-        Debug.Log("Player discovered");
+        if (!_isGameStarted)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                _isGameStarted = true;
+                UIManager.Instance.StartGame();
+                playerManager.StartGame();
+            }
+        }
     }
 
     public void OnKeyCollected()
     {
         _keysCollected++;
-        UIManager.Instance.UpdateKeyText(_keysCollected);
-        if (_keysCollected == keysToCollect)
+        _keysOwned++;
+        UIManager.Instance.UpdateKeyText();
+    }
+
+    public void OnEnteredDoorRange(Door door)
+    {
+        if (_keysOwned > 0)
         {
-            OpenDoor();
+            _keysOwned--;
+            UIManager.Instance.UpdateKeyText();
+            door.Open();
+            Debug.Log("Door opened");
         }
     }
 
-    private void OpenDoor()
+    public void OnEnteredDoor(Door door)
     {
-        _isDoorOpen = true;
-        Debug.Log("Door opened");
-    }
-
-    public void OnEnteredDoor()
-    {
-        if (_isDoorOpen)
+        if (door.IsOpen)
         {
-            Debug.Log("You win!");
-            UIManager.Instance.Win();
+            door.EnterDoor();
+        }
+        else
+        {
+            playerManager.Crash();
         }
     }
 
-    public void OnDiscoveredByEnemy()
+    public void OnEnteredFinalDoor()
     {
-        Debug.Log("You lose");
+        UIManager.Instance.Win();
+    }
+
+    public async void OnFallDown()
+    {
+        // Debug.Log("You lose");
+        await Task.Delay(1000);
         UIManager.Instance.GameOver();
     }
 

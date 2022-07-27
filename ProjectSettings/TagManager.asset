@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Key
   - Door
+  - Normal_Tile
+  - Dropping_Tile
+  - Door_Range
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - UI
   - Obstacle
   - Player
-  - 
+  - Ground
   - 
   - 
   - 
