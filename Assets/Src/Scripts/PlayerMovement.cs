@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController _characterController;
+    private Vector3 _rotation = Vector3.zero;
 
     [SerializeField] private float speed = 6.0f;
     [SerializeField] private float rotationSpeed = 120.0f;
@@ -16,10 +17,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateLogic()
     {
         Move();
         HandleRotation();
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(_rotation), rotationSpeed * Time.deltaTime);
     }
 
     private void HandleRotation()
@@ -55,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             angle = 180f;
         }
 
-        transform.eulerAngles = new Vector3(0, angle, 0);
+        _rotation = new Vector3(0, angle, 0);
     }
 
     private void Move()
