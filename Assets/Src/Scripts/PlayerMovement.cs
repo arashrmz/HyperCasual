@@ -66,4 +66,24 @@ public class PlayerMovement : MonoBehaviour
         var movementDirection = transform.forward.normalized;
         _characterController.Move(movementDirection * speed * Time.deltaTime);
     }
+
+    public void Reverse()
+    {
+        if (_rotation.y == -90f)
+        {
+            _rotation.y = 90f;
+        }
+        else if (_rotation.y == 90f)
+        {
+            _rotation.y = -90f;
+        }
+        else if (_rotation.y == 0f)
+        {
+            _rotation.y = 180f;
+        }
+        else if (_rotation.y == 180f)
+        {
+            _rotation.y = 0f;
+        }
+    }
 }
