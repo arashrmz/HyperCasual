@@ -9,6 +9,7 @@ TagManager:
   - Normal_Tile
   - Dropping_Tile
   - Door_Range
+  - Candy
   layers:
   - Default
   - TransparentFX

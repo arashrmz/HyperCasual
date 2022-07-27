@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 6.0f;
     [SerializeField] private float rotationSpeed = 120.0f;
 
+    public CharacterController CharacterController { get => _characterController; }
+
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
