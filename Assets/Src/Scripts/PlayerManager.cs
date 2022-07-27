@@ -113,12 +113,10 @@ public class PlayerManager : MonoBehaviour
         Gizmos.DrawRay(transform.position, -transform.up * groundDistance);
     }
 
-    public async void Crash()
+    public void Crash()
     {
         _playerState = PlayerState.Crash;
         playerAnimation.OnCrash();
-        await Task.Delay(1000);
-        playerMovement.Reverse();
-        _playerState = PlayerState.Moving;
+        GameManager.Instance.OnFallDown();
     }
 }
