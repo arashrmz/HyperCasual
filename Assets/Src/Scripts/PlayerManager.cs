@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -112,8 +113,12 @@ public class PlayerManager : MonoBehaviour
         Gizmos.DrawRay(transform.position, -transform.up * groundDistance);
     }
 
-    public void Crash()
+    public async void Crash()
     {
-        throw new NotImplementedException();
+        _playerState = PlayerState.Crash;
+        playerAnimation.OnCrash();
+        await Task.Delay(1000);
+        playerMovement.Reverse();
+        _playerState = PlayerState.Moving;
     }
 }
