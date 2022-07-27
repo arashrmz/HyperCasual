@@ -20,13 +20,17 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float groundDistance = 1f;
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private GameObject keyIcon;
+    [SerializeField] private float fallingForwardForce = 1f;
 
     private PlayerState _playerState = PlayerState.Idle;
+    private Rigidbody _rigidbody;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        _rigidbody = GetComponent<Rigidbody>();
 
         _playerState = PlayerState.Idle;
     }
@@ -55,6 +59,7 @@ public class PlayerManager : MonoBehaviour
             _playerState = PlayerState.Falling;
             GameManager.Instance.OnFallDown();
             playerAnimation.OnFalling();
+            _rigidbody.AddForce(transform.forward * fallingForwardForce, ForceMode.Impulse);
         }
         else
         {
@@ -97,6 +102,25 @@ public class PlayerManager : MonoBehaviour
         else if (other.gameObject.tag == "Door_Range")
         {
             GameManager.Instance.OnEnteredDoorRange(other.GetComponent<Door>());
+        }
+        else if (other.gameObject.tag == "Candy")
+        {
+            Destroy(other.gameObject);
+            GameManager.Instance.OnCandyCollected();
+        }
+
+        UpdateKeyIcon();
+    }
+
+    private void UpdateKeyIcon()
+    {
+        if (GameManager.Instance.KeysOwned > 0)
+        {
+            keyIcon.SetActive(true);
+        }
+        else
+        {
+            keyIcon.SetActive(false);
         }
     }
 

@@ -9,15 +9,17 @@ public class GameManager : Singleton<GameManager>
 {
     private int _keysCollected = 0;
     private int _keysOwned = 0;
+    private int _candiesCollected = 0;
     private bool _isGameStarted = false;
 
     [SerializeField] private PlayerManager playerManager;
 
     public int KeysOwned { get => _keysOwned; }
+    public int CandiesCollected { get => _candiesCollected; }
 
     private void Start()
     {
-        UIManager.Instance.UpdateKeyText();
+        UIManager.Instance.UpdateCandyText();
     }
 
     private void Update()
@@ -37,7 +39,12 @@ public class GameManager : Singleton<GameManager>
     {
         _keysCollected++;
         _keysOwned++;
-        UIManager.Instance.UpdateKeyText();
+    }
+
+    public void OnCandyCollected()
+    {
+        _candiesCollected++;
+        UIManager.Instance.UpdateCandyText();
     }
 
     public void OnEnteredDoorRange(Door door)
@@ -45,7 +52,6 @@ public class GameManager : Singleton<GameManager>
         if (_keysOwned > 0)
         {
             _keysOwned--;
-            UIManager.Instance.UpdateKeyText();
             door.Open();
             Debug.Log("Door opened");
         }
