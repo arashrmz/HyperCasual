@@ -9,7 +9,7 @@ TagManager:
   - Normal_Tile
   - Dropping_Tile
   - Door_Range
-  - Candy
+  - Gem
   layers:
   - Default
   - TransparentFX
