@@ -103,10 +103,10 @@ public class PlayerManager : MonoBehaviour
         {
             GameManager.Instance.OnEnteredDoorRange(other.GetComponent<Door>());
         }
-        else if (other.gameObject.tag == "Candy")
+        else if (other.gameObject.tag == "Gem")
         {
             Destroy(other.gameObject);
-            GameManager.Instance.OnCandyCollected();
+            GameManager.Instance.OnGemCollected();
         }
 
         UpdateKeyIcon();

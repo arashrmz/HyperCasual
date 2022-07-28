@@ -33,8 +33,8 @@ public class UIManager : Singleton<UIManager>
         winPanel.SetActive(true);
     }
 
-    public void UpdateCandyText()
+    public void UpdateGemText()
     {
-        candyText.text = $"{GameManager.Instance.CandiesCollected} Candies";
+        candyText.text = $"{GameManager.Instance.GemsCollected} Candies";
     }
 }
