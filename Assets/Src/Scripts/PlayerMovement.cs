@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float speed = 6.0f;
     [SerializeField] private float rotationSpeed = 120.0f;
+    [SerializeField] private GameObject playerModel;
 
     public CharacterController CharacterController { get => _characterController; }
 
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         HandleRotation();
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(_rotation), rotationSpeed * Time.deltaTime);
+        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, Quaternion.Euler(_rotation), rotationSpeed * Time.deltaTime);
     }
 
     private void HandleRotation()
@@ -60,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _rotation = new Vector3(0, angle, 0);
+        transform.eulerAngles = _rotation;
     }
 
     private void Move()
