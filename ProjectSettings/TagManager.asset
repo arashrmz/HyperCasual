@@ -9,6 +9,8 @@ TagManager:
   - Normal_Tile
   - Dropping_Tile
   - Door_Range
+  - Gem
+  - RollingBlade
   layers:
   - Default
   - TransparentFX

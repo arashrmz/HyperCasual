@@ -9,15 +9,19 @@ public class GameManager : Singleton<GameManager>
 {
     private int _keysCollected = 0;
     private int _keysOwned = 0;
+    private int _gemsCollected = 0;
     private bool _isGameStarted = false;
+    private bool _isGameOver = false;
+    private bool _isWinner = false;
 
     [SerializeField] private PlayerManager playerManager;
 
     public int KeysOwned { get => _keysOwned; }
+    public int GemsCollected { get => _gemsCollected; }
 
     private void Start()
     {
-        UIManager.Instance.UpdateKeyText();
+        UIManager.Instance.UpdateGemText();
     }
 
     private void Update()
@@ -37,7 +41,12 @@ public class GameManager : Singleton<GameManager>
     {
         _keysCollected++;
         _keysOwned++;
-        UIManager.Instance.UpdateKeyText();
+    }
+
+    public void OnGemCollected()
+    {
+        _gemsCollected++;
+        UIManager.Instance.UpdateGemText();
     }
 
     public void OnEnteredDoorRange(Door door)
@@ -45,7 +54,6 @@ public class GameManager : Singleton<GameManager>
         if (_keysOwned > 0)
         {
             _keysOwned--;
-            UIManager.Instance.UpdateKeyText();
             door.Open();
             Debug.Log("Door opened");
         }
@@ -65,12 +73,19 @@ public class GameManager : Singleton<GameManager>
 
     public void OnEnteredFinalDoor()
     {
+        if (_isWinner)
+            return;
+        _isWinner = true;
         UIManager.Instance.Win();
+        playerManager.StopPlayer();
     }
 
     public async void OnFallDown()
     {
-        // Debug.Log("You lose");
+        if (_isGameOver)
+            return;
+        Camera.main.GetComponent<CameraFollow>().ShouldFollow = false;
+        _isGameOver = true;
         await Task.Delay(1000);
         UIManager.Instance.GameOver();
     }

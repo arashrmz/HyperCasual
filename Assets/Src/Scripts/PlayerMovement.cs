@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float speed = 6.0f;
     [SerializeField] private float rotationSpeed = 120.0f;
+    [SerializeField] private GameObject playerModel;
+
+    public CharacterController CharacterController { get => _characterController; }
 
     void Start()
     {
@@ -21,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         HandleRotation();
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(_rotation), rotationSpeed * Time.deltaTime);
+        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, Quaternion.Euler(_rotation), rotationSpeed * Time.deltaTime);
     }
 
     private void HandleRotation()
@@ -58,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _rotation = new Vector3(0, angle, 0);
+        transform.eulerAngles = _rotation;
     }
 
     private void Move()
@@ -65,5 +69,25 @@ public class PlayerMovement : MonoBehaviour
         //movement
         var movementDirection = transform.forward.normalized;
         _characterController.Move(movementDirection * speed * Time.deltaTime);
+    }
+
+    public void Reverse()
+    {
+        if (_rotation.y == -90f)
+        {
+            _rotation.y = 90f;
+        }
+        else if (_rotation.y == 90f)
+        {
+            _rotation.y = -90f;
+        }
+        else if (_rotation.y == 0f)
+        {
+            _rotation.y = 180f;
+        }
+        else if (_rotation.y == 180f)
+        {
+            _rotation.y = 0f;
+        }
     }
 }

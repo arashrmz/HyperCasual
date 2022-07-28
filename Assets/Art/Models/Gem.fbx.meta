@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: a5edc418de795126c9b3af3053bd11b9
+guid: 4a16a8378d82e7cd2b0f25ace096ec47
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
-      74: -1191138658058346688
-    second: candy.rig|candy.idle
+      74: -920858827728019546
+    second: Gem.rig|Gem.idle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,8 +36,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: candy.rig|candy.idle
-      takeName: candy.rig|candy.idle
+      name: Gem.rig|Gem.idle
+      takeName: Gem.rig|Gem.idle
       internalID: 0
       firstFrame: 0
       lastFrame: 80

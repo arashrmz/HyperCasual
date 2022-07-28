@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: a5edc418de795126c9b3af3053bd11b9
+guid: a3af5a616c5c9421b9bcfd9de271883b
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
-      74: -1191138658058346688
-    second: candy.rig|candy.idle
+      74: 6856661101508889779
+    second: barell_roll.rig|barell_roll
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: candy.rig|candy.idle
-      takeName: candy.rig|candy.idle
+      name: barell_roll.rig|barell_roll
+      takeName: barell_roll.rig|barell_roll
       internalID: 0
       firstFrame: 0
-      lastFrame: 80
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

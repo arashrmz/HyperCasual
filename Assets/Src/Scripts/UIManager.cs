@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject winPanel;
-    [SerializeField] private TextMeshProUGUI keyText;
+    [SerializeField] private TextMeshProUGUI candyText;
     [SerializeField] private Button restartButton;
     [SerializeField] private GameObject startupText;
 
@@ -32,8 +33,8 @@ public class UIManager : Singleton<UIManager>
         winPanel.SetActive(true);
     }
 
-    public void UpdateKeyText()
+    public void UpdateGemText()
     {
-        keyText.text = $"{GameManager.Instance.KeysOwned} keys";
+        candyText.text = $"{GameManager.Instance.GemsCollected} Candies";
     }
 }
