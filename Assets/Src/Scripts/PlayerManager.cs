@@ -108,6 +108,11 @@ public class PlayerManager : MonoBehaviour
             Destroy(other.gameObject);
             GameManager.Instance.OnGemCollected();
         }
+        else if (other.gameObject.tag == "RollingBlade")
+        {
+            Crash();
+            Debug.Log("Crash");
+        }
 
         UpdateKeyIcon();
     }
@@ -142,5 +147,11 @@ public class PlayerManager : MonoBehaviour
         _playerState = PlayerState.Crash;
         playerAnimation.OnCrash();
         GameManager.Instance.OnFallDown();
+    }
+
+    public void StopPlayer()
+    {
+        _playerState = PlayerState.Idle;
+        playerAnimation.OnIdle();
     }
 }

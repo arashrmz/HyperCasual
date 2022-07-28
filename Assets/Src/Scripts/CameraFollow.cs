@@ -8,15 +8,18 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private float speed;
 
+    public bool ShouldFollow { get; set; }
 
     void Start()
     {
+        ShouldFollow = true;
         offset = transform.position - target.transform.position;
     }
 
     void LateUpdate()
     {
-        FollowTarget();
+        if (ShouldFollow)
+            FollowTarget();
     }
 
     //the camera follows the target smoothly

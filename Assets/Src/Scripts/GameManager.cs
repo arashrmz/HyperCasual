@@ -11,6 +11,8 @@ public class GameManager : Singleton<GameManager>
     private int _keysOwned = 0;
     private int _gemsCollected = 0;
     private bool _isGameStarted = false;
+    private bool _isGameOver = false;
+    private bool _isWinner = false;
 
     [SerializeField] private PlayerManager playerManager;
 
@@ -71,12 +73,19 @@ public class GameManager : Singleton<GameManager>
 
     public void OnEnteredFinalDoor()
     {
+        if (_isWinner)
+            return;
+        _isWinner = true;
         UIManager.Instance.Win();
+        playerManager.StopPlayer();
     }
 
     public async void OnFallDown()
     {
-        // Debug.Log("You lose");
+        if (_isGameOver)
+            return;
+        Camera.main.GetComponent<CameraFollow>().ShouldFollow = false;
+        _isGameOver = true;
         await Task.Delay(1000);
         UIManager.Instance.GameOver();
     }
