@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,13 @@ public class CameraFollow : MonoBehaviour
     {
         ShouldFollow = true;
         offset = transform.position - target.transform.position;
+        GameManager.Instance.OnGameOver += GameOver;
+        GameManager.Instance.OnWinner += GameOver;
+    }
+
+    private void GameOver()
+    {
+        ShouldFollow = false;
     }
 
     void LateUpdate()
