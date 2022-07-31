@@ -25,7 +25,7 @@ public class Door : MonoBehaviour
     public void EnterDoor()
     {
         if (isFinalDoor)
-            GameManager.Instance.OnEnteredFinalDoor();
+            GameManager.Instance.EnteredFinalDoor();
     }
 
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HyperCasual.Assets.Src.Scripts.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,9 +20,17 @@ public class GameManager : Singleton<GameManager>
     public int KeysOwned { get => _keysOwned; }
     public int GemsCollected { get => _gemsCollected; }
 
+
+    //Events
+    //triggered when gem is collected
+    public event Action OnGemCollected;
+    public event Action OnGameStarted;
+    public event Action OnGameOver;
+    public event Action OnWinner;
+
     private void Start()
     {
-        UIManager.Instance.UpdateGemText();
+
     }
 
     private void Update()
@@ -30,26 +39,30 @@ public class GameManager : Singleton<GameManager>
         {
             if (Input.GetMouseButtonDown(0))
             {
-                _isGameStarted = true;
-                UIManager.Instance.StartGame();
-                playerManager.StartGame();
+                StartGame();
             }
         }
     }
 
-    public void OnKeyCollected()
+    private void StartGame()
+    {
+        _isGameStarted = true;
+        OnGameStarted?.Invoke();
+    }
+
+    public void CollectKey()
     {
         _keysCollected++;
         _keysOwned++;
     }
 
-    public void OnGemCollected()
+    public void CollectGem()
     {
         _gemsCollected++;
-        UIManager.Instance.UpdateGemText();
+        OnGemCollected?.Invoke();
     }
 
-    public void OnEnteredDoorRange(Door door)
+    public void EnteredDoorRange(Door door)
     {
         if (_keysOwned > 0)
         {
@@ -59,7 +72,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void OnEnteredDoor(Door door)
+    public void EnteredDoor(Door door)
     {
         if (door.IsOpen)
         {
@@ -71,23 +84,30 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void OnEnteredFinalDoor()
+    public void EnteredFinalDoor()
+    {
+        Win();
+    }
+
+    public void FallDown()
+    {
+        Lose();
+    }
+
+    private void Win()
     {
         if (_isWinner)
             return;
         _isWinner = true;
-        UIManager.Instance.Win();
-        playerManager.StopPlayer();
+        OnWinner?.Invoke();
     }
 
-    public async void OnFallDown()
+    private void Lose()
     {
         if (_isGameOver)
             return;
-        Camera.main.GetComponent<CameraFollow>().ShouldFollow = false;
         _isGameOver = true;
-        await Task.Delay(1000);
-        UIManager.Instance.GameOver();
+        OnGameOver?.Invoke();
     }
 
     public void RestartLevel()
