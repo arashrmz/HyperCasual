@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Threading.Tasks;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -27,13 +28,15 @@ public class UIManager : Singleton<UIManager>
         startupText.SetActive(false);
     }
 
-    private void OnWinner()
+    private async void OnWinner()
     {
+        await Task.Delay(1000);
         winPanel.SetActive(true);
     }
 
-    private void OnGameOver()
+    private async void OnGameOver()
     {
+        await Task.Delay(1000);
         gameOverPanel.SetActive(true);
     }
 
