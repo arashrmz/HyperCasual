@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HyperCasual.Assets.Src.Scripts.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -49,7 +50,7 @@ public class GameManager : Singleton<GameManager>
         OnGameStarted?.Invoke();
     }
 
-    public void OnKeyCollected()
+    public void CollectKey()
     {
         _keysCollected++;
         _keysOwned++;
@@ -61,7 +62,7 @@ public class GameManager : Singleton<GameManager>
         OnGemCollected?.Invoke();
     }
 
-    public void OnEnteredDoorRange(Door door)
+    public void EnteredDoorRange(Door door)
     {
         if (_keysOwned > 0)
         {
@@ -71,7 +72,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void OnEnteredDoor(Door door)
+    public void EnteredDoor(Door door)
     {
         if (door.IsOpen)
         {
@@ -83,12 +84,12 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void OnEnteredFinalDoor()
+    public void EnteredFinalDoor()
     {
         Win();
     }
 
-    public void OnFallDown()
+    public void FallDown()
     {
         Lose();
     }
@@ -108,6 +109,7 @@ public class GameManager : Singleton<GameManager>
         _isGameOver = true;
         OnGameOver?.Invoke();
     }
+
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
