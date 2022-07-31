@@ -6304,6 +6304,39 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.29
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!1 &231132899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 231132900}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &231132900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231132899}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.7400007, y: 0.28, z: -0.74}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 681602615}
+  - {fileID: 7047487125986635842}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &232901639
 GameObject:
   m_ObjectHideFlags: 0
@@ -9484,7 +9517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 813066052842723696}
   winPanel: {fileID: 813066053159625172}
-  gemText: {fileID: 0}
+  gemText: {fileID: 813066052012842388}
   restartButton: {fileID: 813066052848727119}
   startupText: {fileID: 2008041106}
 --- !u!4 &334451146
@@ -19528,8 +19561,8 @@ Transform:
   m_Children:
   - {fileID: 1174244300}
   - {fileID: 277126841}
-  m_Father: {fileID: 7047487125986635842}
-  m_RootOrder: 1
+  m_Father: {fileID: 231132900}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &681602616
 Animator:
@@ -60857,7 +60890,7 @@ GameObject:
   - component: {fileID: 813066052012842389}
   - component: {fileID: 813066052012842388}
   m_Layer: 5
-  m_Name: Candies
+  m_Name: GemText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61936,15 +61969,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7675933249853598456}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7400007, y: 0.28, z: -0.74}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1310088248}
-  - {fileID: 681602615}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 231132900}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7675933249853598456
 GameObject:
@@ -61960,7 +61992,7 @@ GameObject:
   - component: {fileID: 7675933249853598458}
   - component: {fileID: 7675933249853598462}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61985,8 +62017,8 @@ MonoBehaviour:
   playerAnimation: {fileID: 7675933249853598459}
   keyIcon: {fileID: 1310088247}
   fallingForwardForce: 4
-  speed: 6
-  rotationSpeed: 120
+  speed: 4
+  rotationSpeed: 50
   playerModel: {fileID: 681602614}
   _characterController: {fileID: 7675933249853598458}
 --- !u!143 &7675933249853598458
