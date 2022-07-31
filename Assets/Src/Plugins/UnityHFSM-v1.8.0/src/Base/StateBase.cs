@@ -47,6 +47,11 @@ namespace FSM
 
         }
 
+        public virtual void OnLateLogic()
+        {
+
+        }
+
         /// <summary>
         /// Called when the state machine transitions from this state to another state (exits this state)
         /// </summary>

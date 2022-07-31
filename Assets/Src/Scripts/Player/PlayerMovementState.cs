@@ -29,7 +29,12 @@ namespace HyperCasual.Assets.Src.Scripts.Player
         {
             Move();
             HandleRotation();
+        }
+
+        public override void OnLateLogic()
+        {
             _playerManager.PlayerModel.transform.rotation = Quaternion.Slerp(_playerManager.PlayerModel.transform.rotation, Quaternion.Euler(_rotation), _playerManager.RotationSpeed * Time.deltaTime);
+            _playerManager.PlayerModel.transform.position = _playerManager.transform.position;
         }
 
         public override void OnExit()
@@ -39,35 +44,26 @@ namespace HyperCasual.Assets.Src.Scripts.Player
 
         private void HandleRotation()
         {
-            //detect swipe here
-            var left = Input.GetKeyDown(KeyCode.LeftArrow);
-            var right = Input.GetKeyDown(KeyCode.RightArrow);
-            var up = Input.GetKeyDown(KeyCode.UpArrow);
-            var down = Input.GetKeyDown(KeyCode.DownArrow);
-
-            if (!left && !right && !up && !down)
-            {
+            var swipeDirection = InputManager.Instance.SwipeDirection;
+            if (swipeDirection == SwipeDirection.None)
                 return;
-            }
 
             var angle = 0f;
-
-
-            if (left)
-            {
-                angle = -90f;
-            }
-            else if (right)
-            {
-                angle = 90f;
-            }
-            else if (up)
+            if (swipeDirection == SwipeDirection.Up)
             {
                 angle = 0f;
             }
-            else if (down)
+            else if (swipeDirection == SwipeDirection.Down)
             {
                 angle = 180f;
+            }
+            else if (swipeDirection == SwipeDirection.Left)
+            {
+                angle = -90f;
+            }
+            else if (swipeDirection == SwipeDirection.Right)
+            {
+                angle = 90f;
             }
 
             _rotation = new Vector3(0, angle, 0);
