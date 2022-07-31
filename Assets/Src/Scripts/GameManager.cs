@@ -19,9 +19,17 @@ public class GameManager : Singleton<GameManager>
     public int KeysOwned { get => _keysOwned; }
     public int GemsCollected { get => _gemsCollected; }
 
+
+    //Events
+    //triggered when gem is collected
+    public event Action OnGemCollected;
+    public event Action OnGameStarted;
+    public event Action OnGameOver;
+    public event Action OnWinner;
+
     private void Start()
     {
-        UIManager.Instance.UpdateGemText();
+
     }
 
     private void Update()
@@ -30,11 +38,15 @@ public class GameManager : Singleton<GameManager>
         {
             if (Input.GetMouseButtonDown(0))
             {
-                _isGameStarted = true;
-                UIManager.Instance.StartGame();
-                playerManager.StartGame();
+                StartGame();
             }
         }
+    }
+
+    private void StartGame()
+    {
+        _isGameStarted = true;
+        OnGameStarted?.Invoke();
     }
 
     public void OnKeyCollected()
@@ -43,10 +55,10 @@ public class GameManager : Singleton<GameManager>
         _keysOwned++;
     }
 
-    public void OnGemCollected()
+    public void CollectGem()
     {
         _gemsCollected++;
-        UIManager.Instance.UpdateGemText();
+        OnGemCollected?.Invoke();
     }
 
     public void OnEnteredDoorRange(Door door)
@@ -73,23 +85,29 @@ public class GameManager : Singleton<GameManager>
 
     public void OnEnteredFinalDoor()
     {
+        Win();
+    }
+
+    public void OnFallDown()
+    {
+        Lose();
+    }
+
+    private void Win()
+    {
         if (_isWinner)
             return;
         _isWinner = true;
-        UIManager.Instance.Win();
-        playerManager.StopPlayer();
+        OnWinner?.Invoke();
     }
 
-    public async void OnFallDown()
+    private void Lose()
     {
         if (_isGameOver)
             return;
-        Camera.main.GetComponent<CameraFollow>().ShouldFollow = false;
         _isGameOver = true;
-        await Task.Delay(1000);
-        UIManager.Instance.GameOver();
+        OnGameOver?.Invoke();
     }
-
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
