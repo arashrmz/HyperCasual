@@ -29,7 +29,12 @@ namespace HyperCasual.Assets.Src.Scripts.Player
         {
             Move();
             HandleRotation();
+        }
+
+        public override void OnLateLogic()
+        {
             _playerManager.PlayerModel.transform.rotation = Quaternion.Slerp(_playerManager.PlayerModel.transform.rotation, Quaternion.Euler(_rotation), _playerManager.RotationSpeed * Time.deltaTime);
+            _playerManager.PlayerModel.transform.position = _playerManager.transform.position;
         }
 
         public override void OnExit()

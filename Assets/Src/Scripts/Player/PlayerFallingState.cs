@@ -28,5 +28,10 @@ namespace HyperCasual.Assets.Src.Scripts.Player
         {
             _playerManager.transform.Translate(Vector3.down * Time.deltaTime * 5f);
         }
+
+        public override void OnLateLogic()
+        {
+            _playerManager.PlayerModel.transform.position = _playerManager.transform.position;
+        }
     }
 }
