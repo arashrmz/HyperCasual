@@ -92,6 +92,11 @@ namespace HyperCasual.Assets.Src.Scripts.Player
             _stateMachine.OnLogic();
         }
 
+        private void LateUpdate()
+        {
+            _stateMachine.OnLateLogic();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Key")
