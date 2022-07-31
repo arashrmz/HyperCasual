@@ -9484,7 +9484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 813066052842723696}
   winPanel: {fileID: 813066053159625172}
-  candyText: {fileID: 813066052012842388}
+  gemText: {fileID: 0}
   restartButton: {fileID: 813066052848727119}
   startupText: {fileID: 2008041106}
 --- !u!4 &334451146
@@ -61956,7 +61956,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7047487125986635842}
   - component: {fileID: 7675933249853598457}
-  - component: {fileID: 7675933249853598460}
   - component: {fileID: 7675933249853598459}
   - component: {fileID: 7675933249853598458}
   - component: {fileID: 7675933249853598462}
@@ -61983,10 +61982,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   groundDistance: 0.53
-  playerAnimation: {fileID: 0}
-  playerMovement: {fileID: 0}
+  playerAnimation: {fileID: 7675933249853598459}
   keyIcon: {fileID: 1310088247}
   fallingForwardForce: 4
+  speed: 6
+  rotationSpeed: 120
+  playerModel: {fileID: 681602614}
+  _characterController: {fileID: 7675933249853598458}
 --- !u!143 &7675933249853598458
 CharacterController:
   m_ObjectHideFlags: 0
@@ -62019,21 +62021,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnimator: {fileID: 681602616}
   skateAnimator: {fileID: 144487825}
---- !u!114 &7675933249853598460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7675933249853598456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d083f9a229cf69deb7bf764d2edcd76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 6
-  rotationSpeed: 30
-  playerModel: {fileID: 681602614}
 --- !u!54 &7675933249853598462
 Rigidbody:
   m_ObjectHideFlags: 0
