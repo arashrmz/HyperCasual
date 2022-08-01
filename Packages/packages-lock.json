@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.bgtools.playerprefseditor": {
+      "version": "https://github.com/Dysman/bgTools-playerPrefsEditor.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "9dffdf89c8524de0394c3bfb6d4dbe2bc06f3369"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
