@@ -11,11 +11,6 @@ public class LevelIndicator : MonoBehaviour
     [SerializeField] private float levelIndicatorSize = 100f;
     [SerializeField] private TextMeshProUGUI levelText;
 
-    private void Start()
-    {
-        LoadLevel(6);
-    }
-
     public void LoadLevel(int level)
     {
         levelText.text = "Level " + level;
