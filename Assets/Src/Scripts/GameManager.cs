@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HyperCasual.Assets.Src.Scripts.Player;
+using Lean.Touch;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,8 +19,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private PlayerManager playerManager;
 
     public int KeysOwned { get => _keysOwned; }
-    public int GemsCollected { get => _gemsCollected; }
-
+    public int GemsCollected { get => _gemsCollected; } //gems collected in current level
+    public int TotalGems { get => PlayerPrefs.GetInt("TotalGems", 0); }
 
     //Events
     //triggered when gem is collected
@@ -30,18 +31,16 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-
+        LeanTouch.OnFingerDown += HandleFingerDown;
     }
 
-    private void Update()
+    private void HandleFingerDown(LeanFinger finger)
     {
-        if (!_isGameStarted)
+        if (finger.IsOverGui || _isGameStarted)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                StartGame();
-            }
+            return;
         }
+        StartGame();
     }
 
     private void StartGame()
@@ -110,8 +109,28 @@ public class GameManager : Singleton<GameManager>
         OnGameOver?.Invoke();
     }
 
+    public void DoublePrize()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SkipLevel()
+    {
+        throw new NotImplementedException();
+    }
+
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void LoadNextLevel()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnDestroy()
+    {
+        LeanTouch.OnFingerDown -= HandleFingerDown;
     }
 }
