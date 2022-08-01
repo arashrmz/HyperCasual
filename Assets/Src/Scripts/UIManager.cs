@@ -45,6 +45,11 @@ public class UIManager : Singleton<UIManager>
         skipLevelButton.onClick.AddListener(() => GameManager.Instance.SkipLevel());
     }
 
+    public void SetLevel(int currentLevel)
+    {
+        levelIndicator.LoadLevel(currentLevel + 1);
+    }
+
     private void AddWinPanelListeners()
     {
         nextLevelButton.onClick.AddListener(() => GameManager.Instance.LoadNextLevel());
