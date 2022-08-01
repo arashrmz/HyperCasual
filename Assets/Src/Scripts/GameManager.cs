@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     private bool _isWinner = false;
 
     [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private GameObject[] levelPrefabs;
 
     public int KeysOwned { get => _keysOwned; }
     public int GemsCollected { get => _gemsCollected; } //gems collected in current level
@@ -29,9 +30,14 @@ public class GameManager : Singleton<GameManager>
     public event Action OnGameOver;
     public event Action OnWinner;
 
+
     private void Start()
     {
         LeanTouch.OnFingerDown += HandleFingerDown;
+        var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 0);
+        var currentLevelPrefab = levelPrefabs[currentLevel];
+        var currentLevelObject = Instantiate(currentLevelPrefab, Vector3.zero, Quaternion.identity);
+        UIManager.Instance.SetLevel(currentLevel);
     }
 
     private void HandleFingerDown(LeanFinger finger)
@@ -126,7 +132,10 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadNextLevel()
     {
-        throw new NotImplementedException();
+        var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 0);
+        var nextLevel = currentLevel + 1;
+        PlayerPrefs.SetInt("CurrentLevel", nextLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnDestroy()
