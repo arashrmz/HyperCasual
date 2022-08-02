@@ -104,6 +104,8 @@ public class GameManager : Singleton<GameManager>
         if (_isWinner)
             return;
         _isWinner = true;
+        PlayerPrefs.SetInt("TotalGems", TotalGems + _gemsCollected);
+        PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel", 0) + 1);
         OnWinner?.Invoke();
     }
 
@@ -117,12 +119,16 @@ public class GameManager : Singleton<GameManager>
 
     public void DoublePrize()
     {
-        throw new NotImplementedException();
+        //watch ad here
+        //ad gems collected one more time (total of 2 times)
+        PlayerPrefs.SetInt("TotalGems", TotalGems + _gemsCollected);
     }
 
     public void SkipLevel()
     {
-        throw new NotImplementedException();
+        //watch ad here
+        PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel", 0) + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void RestartLevel()
@@ -132,9 +138,6 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadNextLevel()
     {
-        var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 0);
-        var nextLevel = currentLevel + 1;
-        PlayerPrefs.SetInt("CurrentLevel", nextLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
