@@ -30,7 +30,8 @@ public class GameManager : Singleton<GameManager>
     public event Action OnGameStarted;
     public event Action OnGameOver;
     public event Action OnWinner;
-
+    public event Action OnCrash;
+    public event Action OnOpenDoor;
 
     private void Start()
     {
@@ -75,7 +76,7 @@ public class GameManager : Singleton<GameManager>
         {
             _keysOwned--;
             door.Open();
-            Debug.Log("Door opened");
+            OnOpenDoor?.Invoke();
         }
     }
 
@@ -88,6 +89,7 @@ public class GameManager : Singleton<GameManager>
         else
         {
             playerManager.Crash();
+            OnCrash?.Invoke();
         }
     }
 
