@@ -26,6 +26,7 @@ public class GameManager : Singleton<GameManager>
     //Events
     //triggered when gem is collected
     public event Action OnGemCollected;
+    public event Action OnKeyCollected;
     public event Action OnGameStarted;
     public event Action OnGameOver;
     public event Action OnWinner;
@@ -59,6 +60,7 @@ public class GameManager : Singleton<GameManager>
     {
         _keysCollected++;
         _keysOwned++;
+        OnKeyCollected?.Invoke();
     }
 
     public void CollectGem()
