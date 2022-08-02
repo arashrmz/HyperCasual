@@ -9,6 +9,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip collectGemSound;
     [SerializeField] private AudioClip gameOverSound;
     [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip crashSound;
+    [SerializeField] private AudioClip openDoorSound;
 
     void Start()
     {
@@ -17,8 +19,9 @@ public class SoundManager : MonoBehaviour
         GameManager.Instance.OnWinner += PlayWinSound;
         GameManager.Instance.OnKeyCollected += PlayCollectKeySound;
         GameManager.Instance.OnGemCollected += PlayCollectGemSound;
+        GameManager.Instance.OnCrash += PlayCrashSound;
+        GameManager.Instance.OnOpenDoor += PlayOpenDoorSound;
     }
-
 
     private void PlayGameOverSound()
     {
@@ -40,11 +43,23 @@ public class SoundManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(collectGemSound, Camera.main.transform.position);
     }
 
+    private void PlayCrashSound()
+    {
+        AudioSource.PlayClipAtPoint(crashSound, Camera.main.transform.position);
+    }
+
+    private void PlayOpenDoorSound()
+    {
+        AudioSource.PlayClipAtPoint(openDoorSound, Camera.main.transform.position);
+    }
+
     private void OnDestroy()
     {
         GameManager.Instance.OnGameOver -= PlayGameOverSound;
         GameManager.Instance.OnWinner -= PlayWinSound;
         GameManager.Instance.OnKeyCollected -= PlayCollectKeySound;
         GameManager.Instance.OnGemCollected -= PlayCollectGemSound;
+        GameManager.Instance.OnCrash -= PlayCrashSound;
+        GameManager.Instance.OnOpenDoor -= PlayOpenDoorSound;
     }
 }
