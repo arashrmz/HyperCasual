@@ -14,6 +14,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Button shopButton;
     [SerializeField] private LevelIndicator levelIndicator;
     [SerializeField] private TextMeshProUGUI gemText;
+    [SerializeField] private GameObject shopWindow;
 
     [Header("Lose Panel")]
     [SerializeField] private GameObject gameOverPanel;
@@ -64,7 +65,14 @@ public class UIManager : Singleton<UIManager>
 
     private void OpenShop()
     {
-        throw new NotImplementedException();
+        levelIndicator.gameObject.SetActive(false);
+        shopWindow.SetActive(true);
+    }
+
+    public void CloseShop()
+    {
+        levelIndicator.gameObject.SetActive(true);
+        shopWindow.SetActive(false);
     }
 
     private void OpenSettings()
