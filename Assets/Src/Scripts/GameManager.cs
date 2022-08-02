@@ -26,10 +26,12 @@ public class GameManager : Singleton<GameManager>
     //Events
     //triggered when gem is collected
     public event Action OnGemCollected;
+    public event Action OnKeyCollected;
     public event Action OnGameStarted;
     public event Action OnGameOver;
     public event Action OnWinner;
-
+    public event Action OnCrash;
+    public event Action OnOpenDoor;
 
     private void Start()
     {
@@ -59,6 +61,7 @@ public class GameManager : Singleton<GameManager>
     {
         _keysCollected++;
         _keysOwned++;
+        OnKeyCollected?.Invoke();
     }
 
     public void CollectGem()
@@ -73,7 +76,7 @@ public class GameManager : Singleton<GameManager>
         {
             _keysOwned--;
             door.Open();
-            Debug.Log("Door opened");
+            OnOpenDoor?.Invoke();
         }
     }
 
@@ -86,6 +89,7 @@ public class GameManager : Singleton<GameManager>
         else
         {
             playerManager.Crash();
+            OnCrash?.Invoke();
         }
     }
 
@@ -104,6 +108,8 @@ public class GameManager : Singleton<GameManager>
         if (_isWinner)
             return;
         _isWinner = true;
+        PlayerPrefs.SetInt("TotalGems", TotalGems + _gemsCollected);
+        PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel", 0) + 1);
         OnWinner?.Invoke();
     }
 
@@ -117,12 +123,16 @@ public class GameManager : Singleton<GameManager>
 
     public void DoublePrize()
     {
-        throw new NotImplementedException();
+        //watch ad here
+        //ad gems collected one more time (total of 2 times)
+        PlayerPrefs.SetInt("TotalGems", TotalGems + _gemsCollected);
     }
 
     public void SkipLevel()
     {
-        throw new NotImplementedException();
+        //watch ad here
+        PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel", 0) + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void RestartLevel()
@@ -132,9 +142,6 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadNextLevel()
     {
-        var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 0);
-        var nextLevel = currentLevel + 1;
-        PlayerPrefs.SetInt("CurrentLevel", nextLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
