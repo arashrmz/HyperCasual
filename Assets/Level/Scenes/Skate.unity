@@ -3114,17 +3114,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 346cfb53fd99a4410b5863467a966991,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.4269506e-12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 346cfb53fd99a4410b5863467a966991,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.2217932e-19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 346cfb53fd99a4410b5863467a966991,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3.931922e-27
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 346cfb53fd99a4410b5863467a966991,
         type: 3}
@@ -3139,12 +3139,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 346cfb53fd99a4410b5863467a966991,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 4.440892e-16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 346cfb53fd99a4410b5863467a966991,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000137994896
+      value: 0.000000013799489
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 346cfb53fd99a4410b5863467a966991,
         type: 3}
@@ -9052,6 +9052,19 @@ MonoBehaviour:
   levelPrefabs:
   - {fileID: 1574972738483389437, guid: 1f0a6a6198b7b7d46b254f629f5db055, type: 3}
   - {fileID: 4194786744622446583, guid: ce155264033190d378baf23224d0b5ad, type: 3}
+  charactersPrefabs:
+  - {fileID: 4059970255810718063, guid: ed9a52246ca1a6d9f844b25650ed6977, type: 3}
+  - {fileID: 1178612278951723750, guid: a9c0518bb0a1794d98afcc4a93a05178, type: 3}
+  - {fileID: 2020805684961634362, guid: 91b1593451b7cc8c69a9127dcdaf6705, type: 3}
+  - {fileID: 8266179336973943749, guid: 642107e013b4279ceb13da2cc42c19bb, type: 3}
+  - {fileID: 5151859519237917516, guid: 745388e766371676fba77076231acdc5, type: 3}
+  skatesPrefabs:
+  - {fileID: 7416159351260082979, guid: 65a87ebb6a30f7ac9952ea75f2cfb7ee, type: 3}
+  - {fileID: 7110822486864002392, guid: 0994ebd5b56e6d27b92cfad036e44573, type: 3}
+  - {fileID: 65050697573987175, guid: a5731768f70c9647ca2cbe82189c945a, type: 3}
+  - {fileID: 7538606054821529525, guid: 18ef9bad4c891cdc7867a11abbc7915d, type: 3}
+  - {fileID: 8430694109915479712, guid: 9f282c03f51e8edb2833ad1c50d9b828, type: 3}
+  - {fileID: 5419795925691110565, guid: b281e44afd3342283bab9dbd1ba68ed1, type: 3}
 --- !u!4 &1882342966
 Transform:
   m_ObjectHideFlags: 0

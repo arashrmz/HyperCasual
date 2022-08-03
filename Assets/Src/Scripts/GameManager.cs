@@ -18,6 +18,8 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private GameObject[] levelPrefabs;
+    [SerializeField] private GameObject[] charactersPrefabs;
+    [SerializeField] private GameObject[] skatesPrefabs;
 
     public int KeysOwned { get => _keysOwned; }
     public int GemsCollected { get => _gemsCollected; } //gems collected in current level
@@ -35,11 +37,38 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        InitFirstRun();
+        LoadCharacter();
         LeanTouch.OnFingerDown += HandleFingerDown;
         var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 0);
         var currentLevelPrefab = levelPrefabs[currentLevel];
         var currentLevelObject = Instantiate(currentLevelPrefab, Vector3.zero, Quaternion.identity);
         UIManager.Instance.SetLevel(currentLevel);
+    }
+
+    private void InitFirstRun()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void LoadCharacter()
+    {
+        //load character
+        var currentCharIndex = PlayerPrefs.GetInt("CurrentCharacter", 0);
+        var currentCharObject = Instantiate(charactersPrefabs[currentCharIndex], Vector3.zero, Quaternion.identity);
+
+        //load skate
+        var currentSkateIndex = PlayerPrefs.GetInt("CurrentSkate", 0);
+        var currentSkateObject = Instantiate(skatesPrefabs[currentSkateIndex], Vector3.zero, Quaternion.identity);
+
+        //place skate under player
+        currentSkateObject.transform.parent = currentCharObject.transform.GetChild(1).GetChild(0);
+        currentSkateObject.transform.localPosition = Vector3.zero;
+
+        currentCharObject.transform.parent = playerManager.transform.parent;
+        currentCharObject.transform.localPosition = Vector3.zero;
+
+        playerManager.ReplacePlayerModel(currentCharObject, currentSkateObject);
     }
 
     private void HandleFingerDown(LeanFinger finger)

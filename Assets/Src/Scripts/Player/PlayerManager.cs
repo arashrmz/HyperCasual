@@ -49,6 +49,17 @@ namespace HyperCasual.Assets.Src.Scripts.Player
             GameManager.Instance.OnWinner += GameOver;
         }
 
+        public void ReplacePlayerModel(GameObject charModel, GameObject skateModel)
+        {
+            Destroy(playerModel);
+            playerModel = charModel;
+            playerAnimation.SetAnimator(playerModel.GetComponent<Animator>(), skateModel.GetComponent<Animator>());
+            if (_stateMachine != null)
+            {
+                _stateMachine.RequestStateChange("Idle");
+            }
+        }
+
         private void InitStateMachine()
         {
             _stateMachine = new StateMachine(this);
@@ -69,7 +80,7 @@ namespace HyperCasual.Assets.Src.Scripts.Player
 
         private void FixedUpdate()
         {
-            if (_stateMachine.ActiveStateName == "Falling")
+            if (_stateMachine.ActiveStateName != "Moving" || _stateMachine.ActiveStateName == "Falling")
                 return;
 
             RaycastHit hitInfo;

@@ -13,6 +13,12 @@ public class PlayerAnimation : MonoBehaviour
     public static readonly int Crash = Animator.StringToHash("Crash");
     public static readonly int Falling = Animator.StringToHash("Falling");
 
+    public void SetAnimator(Animator newCharacterAnimator, Animator newSkateAnimator)
+    {
+        characterAnimator = newCharacterAnimator;
+        skateAnimator = newSkateAnimator;
+    }
+
     public void PlayIdleAnimation()
     {
         characterAnimator.CrossFade(Idle, 0.1f);
