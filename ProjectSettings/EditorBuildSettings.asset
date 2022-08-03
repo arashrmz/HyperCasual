@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Level/Scenes/Skate.unity
+    guid: 0c694b8c6c09c65418d5f620eb851920
   m_configObjects: {}
