@@ -48,7 +48,16 @@ public class GameManager : Singleton<GameManager>
 
     private void InitFirstRun()
     {
-        throw new NotImplementedException();
+        if (PlayerPrefs.GetInt("FirstRun", 0) == 0)
+        {
+            PlayerPrefs.SetInt("FirstRun", 1);
+            PlayerPrefs.SetInt("TotalGems", 0);
+            PlayerPrefs.SetInt("CurrentLevel", 0);
+            PlayerPrefs.SetInt("CurrentCharacter", 0);
+            PlayerPrefs.SetInt("CurrentSkate", 0);
+            PlayerPrefs.SetInt("Character0", 1);
+            PlayerPrefs.SetInt("Skate0", 1);
+        }
     }
 
     private void LoadCharacter()
