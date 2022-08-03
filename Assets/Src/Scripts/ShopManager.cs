@@ -17,6 +17,8 @@ public class ShopManager : MonoBehaviour
     [Header("Shop items")]
     [SerializeField] private GameObject buyButton;
     [SerializeField] private GameObject equipButton;
+    [SerializeField] private Sprite equipedSprite;
+    [SerializeField] private Sprite notEquipedSprite;
 
     private bool _isCharactersTabActive = true;
     private int _currentCharacterIndex = 0;
@@ -54,11 +56,11 @@ public class ShopManager : MonoBehaviour
             int characterIndex = index;
             if (characterIndex == _currentCharacterIndex)
             {
-                characterButton.GetComponent<Image>().color = Color.green;
+                characterButton.GetComponent<Image>().sprite = equipedSprite;
             }
             else
             {
-                characterButton.GetComponent<Image>().color = Color.white;
+                characterButton.GetComponent<Image>().sprite = notEquipedSprite;
             }
             index++;
         }
@@ -72,11 +74,11 @@ public class ShopManager : MonoBehaviour
             int skateIndex = index;
             if (skateIndex == _currentSkateIndex)
             {
-                skateButton.GetComponent<Image>().color = Color.green;
+                skateButton.GetComponent<Image>().sprite = equipedSprite;
             }
             else
             {
-                skateButton.GetComponent<Image>().color = Color.white;
+                skateButton.GetComponent<Image>().sprite = notEquipedSprite;
             }
             index++;
         }
@@ -103,7 +105,13 @@ public class ShopManager : MonoBehaviour
         Debug.Log("Selected skate: " + index);
         //TODO: set selected character preview image
         //if player owns character, enable equip button
-        if (PlayerPrefs.GetInt("Skate" + index, 0) == 1)
+        if (PlayerPrefs.GetInt("CurrentSkate", 0) == index)
+        {
+            equipButton.GetComponent<Button>().interactable = false;
+            equipButton.SetActive(true);
+            buyButton.SetActive(false);
+        }
+        else if (PlayerPrefs.GetInt("Skate" + index, 0) == 1)
         {
             int skateIndex = index;
             equipButton.GetComponent<Button>().onClick.AddListener(() =>
@@ -111,6 +119,7 @@ public class ShopManager : MonoBehaviour
 
                 EquipSkate(skateIndex);
             });
+            equipButton.GetComponent<Button>().interactable = true;
             equipButton.SetActive(true);
             buyButton.SetActive(false);
         }
@@ -148,13 +157,20 @@ public class ShopManager : MonoBehaviour
         Debug.Log("Selected character: " + index);
         //TODO: set selected character preview image
         //if player owns character, enable equip button
-        if (PlayerPrefs.GetInt("Character" + index, 0) == 1)
+        if (PlayerPrefs.GetInt("CurrentCharacter", 0) == index)
+        {
+            equipButton.GetComponent<Button>().interactable = false;
+            equipButton.SetActive(true);
+            buyButton.SetActive(false);
+        }
+        else if (PlayerPrefs.GetInt("Character" + index, 0) == 1)
         {
             int characterIndex = index;
             equipButton.GetComponent<Button>().onClick.AddListener(() =>
             {
                 EquipCharacter(characterIndex);
             });
+            equipButton.GetComponent<Button>().interactable = true;
             equipButton.SetActive(true);
             buyButton.SetActive(false);
         }
@@ -174,8 +190,8 @@ public class ShopManager : MonoBehaviour
     {
         _isCharactersTabActive = true;
         scrollRect.content = charactersContainer.GetComponent<RectTransform>();
-        charactersTabButton.GetComponent<Image>().color = Color.gray;
-        skatesTabButton.GetComponent<Image>().color = Color.white;
+        charactersTabButton.GetComponent<Button>().interactable = false;
+        skatesTabButton.GetComponent<Button>().interactable = true;
         charactersContainer.SetActive(true);
         skatesContainer.SetActive(false);
         scrollRect.content = charactersContainer.GetComponent<RectTransform>();
@@ -185,8 +201,8 @@ public class ShopManager : MonoBehaviour
     {
         _isCharactersTabActive = false;
         scrollRect.content = skatesContainer.GetComponent<RectTransform>();
-        charactersTabButton.GetComponent<Image>().color = Color.white;
-        skatesTabButton.GetComponent<Image>().color = Color.gray;
+        charactersTabButton.GetComponent<Button>().interactable = true;
+        skatesTabButton.GetComponent<Button>().interactable = false;
         charactersContainer.SetActive(false);
         skatesContainer.SetActive(true);
         scrollRect.content = skatesContainer.GetComponent<RectTransform>();
