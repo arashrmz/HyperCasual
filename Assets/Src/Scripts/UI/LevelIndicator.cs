@@ -8,8 +8,9 @@ public class LevelIndicator : MonoBehaviour
 {
     [SerializeField] private Image[] levelIndicators;
     [SerializeField] private RectTransform levelIndicatorContainer;
-    [SerializeField] private float levelIndicatorSize = 100f;
+    [SerializeField] private float levelIndicatorSize = 110f;
     [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private Sprite passedLevelIndicatorSprite;
 
     public void LoadLevel(int level)
     {
@@ -22,7 +23,7 @@ public class LevelIndicator : MonoBehaviour
         {
             if (i < level)
             {
-                levelIndicators[i].color = Color.green;
+                levelIndicators[i].sprite = passedLevelIndicatorSprite;
             }
         }
 
